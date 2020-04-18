@@ -1,0 +1,11 @@
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.csprojAssemblyReference.cache
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.Form1.resources
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.Properties.Resources.resources
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.csproj.GenerateResource.cache
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.csproj.CoreCompileInputs.cache
+C:\Users\管理者\Desktop\商品マスタ\master\master\bin\Debug\master.exe.config
+C:\Users\管理者\Desktop\商品マスタ\master\master\bin\Debug\master.exe
+C:\Users\管理者\Desktop\商品マスタ\master\master\bin\Debug\master.pdb
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.exe
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.pdb
+C:\Users\管理者\Desktop\商品マスタ\master\master\obj\Debug\master.LoginForm.resources
