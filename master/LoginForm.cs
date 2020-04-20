@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace master
 {
@@ -27,9 +28,20 @@ namespace master
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnlogin_Click(object sender, EventArgs e)
         {
+            DataTable dataTable = new DataTable();
 
-        }
+            string sql = "SELECT * FROM M_Stuff WHERE [Staff_ID ,Staff_Password] = " + "'" + username.Text + "'" + " AND [PASSWORD] = " + "'" + password.Text + "'";
+
+            using (SqlConnection conn = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dataTable);
+                        int rowcount = dataTable.Rows.Count;
+                    }
     }
 }
