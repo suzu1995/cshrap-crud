@@ -43,6 +43,7 @@
             this.btnlogin.TabIndex = 0;
             this.btnlogin.Text = "ログイン";
             this.btnlogin.UseVisualStyleBackColor = true;
+            this.btnlogin.Click += new System.EventHandler(this.btnlogin_Click);
             // 
             // Idtxt
             // 
@@ -60,6 +61,7 @@
             this.passtxt.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.passtxt.Size = new System.Drawing.Size(145, 19);
             this.passtxt.TabIndex = 2;
+            this.passtxt.TextChanged += new System.EventHandler(this.passtxt_TextChanged);
             // 
             // label1
             // 
