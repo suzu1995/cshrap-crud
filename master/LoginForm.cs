@@ -61,18 +61,30 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                string slc = @"select * from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
+                string slc = @"select * from M_Staff WHERE Staff_ID=@sqlid AND Staff_Password=@sqlpw";
                 SqlCommand com = new SqlCommand(slc, con);
+
+                //idのSqlパラメータの作成
+                SqlParameter paramid = com.CreateParameter();
+                paramid.ParameterName = "@sqlid";
+                paramid.SqlDbType = SqlDbType.VarChar;
+                paramid.Direction = ParameterDirection.Input;
+                com.Parameters.Add(paramid);
+
+                //passwordのSqlパラメーターの作成
+                SqlParameter parampsw= com.CreateParameter();
+                parampsw.ParameterName = "@sqlpw";
+                parampsw.SqlDbType = SqlDbType.VarChar;
+                parampsw.Direction = ParameterDirection.Input;
+                com.Parameters.Add(parampsw);
 
                 //staffIDとpasswordの読み取り
                 SqlDataReader sdr = com.ExecuteReader();
                 while (sdr.Read() == true)
                 {
-                    string Id = (string)sdr["Staff_ID"];
-                    string Psw = (string)sdr["Staff_Password"];
-
-                    //ひとまずDBが読み取りできてログインできるかどうか
-                    if (id == Id && pw == Psw)
+             
+                      //ひとまずDBが読み取りできてログインできるかどうか
+                   if (id == @sqlid && pw == @sqlpw)
                     {
                         MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK); 
                     }
