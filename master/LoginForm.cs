@@ -47,7 +47,7 @@ namespace master
             string pw = passtxt.Text;
 
             //接続文字列の取得
-            string constr = @"Data Source = JBH4QJM\SQLEXPRESS; Initial Catalog = Staff; Integrated Security = True";
+            string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
 
             //DB接続の準備
             SqlConnection con = new SqlConnection(constr);
@@ -60,7 +60,8 @@ namespace master
                 con.Open();
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
-                string slc = "select * from M_Stuff";
+
+                string slc = @"select * from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
                 SqlCommand com = new SqlCommand(slc, con);
 
                 //staffIDとpasswordの読み取り
@@ -69,6 +70,8 @@ namespace master
                 {
                     string Id = (string)sdr["Staff_ID"];
                     string Psw = (string)sdr["Staff_Password"];
+
+                    //ひとまずDBが読み取りできてログインできるかどうか
                     if (id == Id && pw == Psw)
                     {
                         MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK); 
@@ -77,9 +80,9 @@ namespace master
                
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
             finally
             {
