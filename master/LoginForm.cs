@@ -87,23 +87,23 @@ namespace master
                 {
 
                     //ひとまずDBが読み取りできてログインできるかどうか
-                    if (id.Equals(sqlid) && pw.Equals(sqlpw))
+                    if (id.Equals(@id) && pw.Equals(@pw))
                     {
                         MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
                     }
                     else if (string.IsNullOrEmpty(id))
                     {
-                        MessageBox.Show("社員IDが未入力です", "エラー", MessageBoxButtons.OK);
+                        MessageBox.Show("社員IDが未入力です", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (string.IsNullOrEmpty(pw))
                     {
-                        MessageBox.Show("パスワードが未入力です", "エラー", MessageBoxButtons.OK);
+                        MessageBox.Show("パスワードが未入力です", "エラー", MessageBoxButtons.OK,MessageBoxIcon.Error);
                     }
                     else
                     {
                         MessageBox.Show
                             ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください" +
-                            "", "エラー", MessageBoxButtons.OK);
+                            "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
