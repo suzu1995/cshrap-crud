@@ -61,7 +61,7 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                string slc = @"select * from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
+                string slc = @"select count(*) from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
                 SqlCommand com = new SqlCommand(slc, con);
                 //stringなので文字列として準備して実行する必要がある
 
@@ -71,18 +71,23 @@ namespace master
                 paramid.SqlDbType = SqlDbType.VarChar;
                 paramid.Direction = ParameterDirection.Input;
                 paramid.Value = "TES0010021";
-               SqlParameter sqlid = com.Parameters.Add(paramid);
+
+                SqlParameter sqlid = com.Parameters.Add(paramid);
 
                 //passwordのSqlパラメーターの作成
                 SqlParameter parampsw= com.CreateParameter(); 
                 parampsw.ParameterName = "@pw";
                 parampsw.SqlDbType = SqlDbType.VarChar;
-                parampsw.Direction = ParameterDirection.Input;
-                parampsw.Value = "password";
-               SqlParameter sqlpw = com.Parameters.Add(parampsw);
+                paramid.Direction = ParameterDirection.Input;
+                paramid.Value = "password";
+
+                SqlParameter sqlpw = com.Parameters.Add(parampsw);
+
+                
 
                 //staffIDとpasswordの読み取り
-                SqlDataReader sdr = com.ExecuteReader();
+                SqlDataReader sdr = com.ExecuteScalar(); 
+
                 while (sdr.Read() == true)
                 {
 
