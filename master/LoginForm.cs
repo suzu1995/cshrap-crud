@@ -43,8 +43,8 @@ namespace master
 
 
         {
-            string id = Idtxt.Text;
-            string pw = passtxt.Text;
+            string txtid = Idtxt.Text;
+            string txtpw = passtxt.Text;
 
             //接続文字列の取得
             string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
@@ -61,53 +61,51 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                string slc = @"select count(*) from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
+                string slc = @"select count (*) from M_Staff where Staff_ID=@id AND Staff_Password=@pw";
                 SqlCommand com = new SqlCommand(slc, con);
+
+
+
+
                 //stringなので文字列として準備して実行する必要がある
 
                 //idのSqlパラメータの作成
-                SqlParameter paramid = com.CreateParameter();
-                paramid.ParameterName = "@id";
-                paramid.SqlDbType = SqlDbType.VarChar;
-                paramid.Direction = ParameterDirection.Input;
+                SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar);
                 paramid.Value = "TES0010021";
 
-                SqlParameter sqlid = com.Parameters.Add(paramid);
 
                 //passwordのSqlパラメーターの作成
-                SqlParameter parampsw= com.CreateParameter(); 
-                parampsw.ParameterName = "@pw";
-                parampsw.SqlDbType = SqlDbType.VarChar;
-                paramid.Direction = ParameterDirection.Input;
-                paramid.Value = "password";
+                SqlParameter parampw = new SqlParameter("@pw", SqlDbType.VarChar);
+                parampw.Value = "password";
 
-                SqlParameter sqlpw = com.Parameters.Add(parampsw);
+                com.Parameters.Add(paramid);
+                com.Parameters.Add(parampw);
 
+
+
+
+                int num = (int)com.ExecuteScalar();
+
+
+                //条件分岐
                 
+                    if (num > 1)
 
-                //staffIDとpasswordの読み取り
-                SqlDataReader sdr = com.ExecuteScalar(); 
-
-                while (sdr.Read() == true)
-                {
-
-                    //条件分岐
-                    if (id.Equals(sqlid) && pw.Equals(sqlpw))
                     {
-                        MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
+                    MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
                     }
 
-                    else if (string.IsNullOrEmpty(id)&&string.IsNullOrEmpty(pw))
+                    else if (string.IsNullOrEmpty(txtid)&&string.IsNullOrEmpty(txtpw))
                     {
                         MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    else if (string.IsNullOrEmpty(id))
+                    else if (string.IsNullOrEmpty(txtid))
                     {
                         MessageBox.Show("社員IDが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    else if (string.IsNullOrEmpty(pw))
+                    else if (string.IsNullOrEmpty(txtpw))
                     {
                         MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK,MessageBoxIcon.Error);
                     }
@@ -116,9 +114,10 @@ namespace master
                         MessageBox.Show
                             ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください。" +
                             "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
+                    
                 }
+
+                
                
             }
 
