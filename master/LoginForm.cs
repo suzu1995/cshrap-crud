@@ -61,23 +61,25 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                string slc = @"select * from M_Staff WHERE Staff_ID AND Staff_Password";
+                string slc = @"select * from M_Staff WHERE Staff_ID=@id AND Staff_Password=@pw";
                 SqlCommand com = new SqlCommand(slc, con);
                 //stringなので文字列として準備して実行する必要がある
 
                 //idのSqlパラメータの作成
                 SqlParameter paramid = com.CreateParameter();
-                paramid.ParameterName = "@Staff_ID";
+                paramid.ParameterName = "@id";
                 paramid.SqlDbType = SqlDbType.VarChar;
                 paramid.Direction = ParameterDirection.Input;
-               SqlParameter @sqlid = com.Parameters.Add(paramid);
+                paramid.Value = "TES0010021";
+               SqlParameter sqlid = com.Parameters.Add(paramid);
 
                 //passwordのSqlパラメーターの作成
-                SqlParameter parampsw= com.CreateParameter();
-                parampsw.ParameterName = "@Staff_Password";
+                SqlParameter parampsw= com.CreateParameter(); 
+                parampsw.ParameterName = "@pw";
                 parampsw.SqlDbType = SqlDbType.VarChar;
                 parampsw.Direction = ParameterDirection.Input;
-               SqlParameter @sqlpw = com.Parameters.Add(parampsw);
+                parampsw.Value = "password";
+               SqlParameter sqlpw = com.Parameters.Add(parampsw);
 
                 //staffIDとpasswordの読み取り
                 SqlDataReader sdr = com.ExecuteReader();
@@ -85,10 +87,25 @@ namespace master
                 {
 
                     //ひとまずDBが読み取りできてログインできるかどうか
-                    if (id.Equals(paramid) && pw.Equals(parampsw))
+                    if (id.Equals(sqlid) && pw.Equals(sqlpw))
                     {
-                        MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK); 
+                        MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
                     }
+                    else if (string.IsNullOrEmpty(id))
+                    {
+                        MessageBox.Show("社員IDが未入力です", "エラー", MessageBoxButtons.OK);
+                    }
+                    else if (string.IsNullOrEmpty(pw))
+                    {
+                        MessageBox.Show("パスワードが未入力です", "エラー", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show
+                            ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください" +
+                            "", "エラー", MessageBoxButtons.OK);
+                    }
+
                 }
                
             }
