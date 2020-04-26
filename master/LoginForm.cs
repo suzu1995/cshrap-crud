@@ -51,25 +51,28 @@ namespace master
                 string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
 
 
+
+            //DB接続の準備
            
-                //DB接続の準備
                 SqlConnection con = new SqlConnection(constr);
 
 
 
-            try
-            {
 
+
+            try
+            {      
                 //DB接続開始
                 con.Open();
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
                 SqlCommand com = new SqlCommand(constr,con);
-                com.CommandText = @"SELECT COUNT (*) FROM M_Staff WHERE Staff_ID= @id AND Staff_Password =@pw";
-               
+                com.CommandText = @"SELECT COUNT (*) FROM M_Staff WHERE [Staff_ID]= " + "'" + txtid + "'" + " AND[Staff_Password] = " + "'" + txtpw + "'";
 
-               
+
+
+
 
                 //idのSqlパラメータの作成
                 SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar, 10);
@@ -89,13 +92,16 @@ namespace master
 
             //条件分岐
 
-           
+           //ここが１になっている
+
                 if (num == 0)
 
                 {
-                        MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
-                        
-                    }
+                    MessageBox.Show
+                             ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください。" +
+                             "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
 
                     else if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
                     {
@@ -113,11 +119,10 @@ namespace master
                     }
                     else
                     {
-                        MessageBox.Show
-                                ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください。" +
-                                "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                       
+                    MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
 
-                    }
+                }
                 
                 
                
@@ -130,8 +135,8 @@ namespace master
             finally
             {
 
-                con.Dispose();
-                con.Close();
+               con.Dispose();
+               con.Close();
             }
 
            
