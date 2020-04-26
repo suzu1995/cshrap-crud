@@ -46,56 +46,58 @@ namespace master
             string txtid = Idtxt.Text;
             string txtpw = passtxt.Text;
 
-            //接続文字列の取得
-            string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
+           
+                //接続文字列の取得
+                string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
 
-            //DB接続の準備
-            SqlConnection con = new SqlConnection(constr);
+
+           
+                //DB接続の準備
+                SqlConnection con = new SqlConnection(constr);
 
 
 
             try
             {
+
                 //DB接続開始
                 con.Open();
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                string slc = @"select count (*) from M_Staff where Staff_ID=@id AND Staff_Password=@pw";
-                SqlCommand com = new SqlCommand(slc, con);
+                SqlCommand com = new SqlCommand(constr,con);
+                com.CommandText = @"SELECT COUNT (*) FROM M_Staff WHERE Staff_ID= @id AND Staff_Password =@pw";
+               
 
-
-
-
-                //stringなので文字列として準備して実行する必要がある
+               
 
                 //idのSqlパラメータの作成
-                SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar);
+                SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar, 10);
                 paramid.Value = "TES0010021";
 
 
                 //passwordのSqlパラメーターの作成
-                SqlParameter parampw = new SqlParameter("@pw", SqlDbType.VarChar);
-                parampw.Value = "password";
+                SqlParameter parampw = new SqlParameter("@pw", SqlDbType.VarChar, 10);
+                parampw.Value = "password" ;
 
                 com.Parameters.Add(paramid);
                 com.Parameters.Add(parampw);
-
-
+                com.Prepare();
 
 
                 int num = (int)com.ExecuteScalar();
 
+            //条件分岐
 
-                //条件分岐
-                
-                    if (num > 1)
+           
+                if (num == 0)
 
-                    {
-                    MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
+                {
+                        MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
+                        
                     }
 
-                    else if (string.IsNullOrEmpty(txtid)&&string.IsNullOrEmpty(txtpw))
+                    else if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
                     {
                         MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -107,16 +109,16 @@ namespace master
 
                     else if (string.IsNullOrEmpty(txtpw))
                     {
-                        MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
                         MessageBox.Show
-                            ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください。" +
-                            "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
-                }
+                                ("社員IDもしくはパスワードが間違っているためログインできません。再度入力してください。" +
+                                "", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                    }
+                
                 
                
             }
