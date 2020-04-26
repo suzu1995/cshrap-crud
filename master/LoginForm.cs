@@ -97,16 +97,20 @@ namespace master
                  if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
                     {
                         MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                     }
 
                     else if (string.IsNullOrEmpty(txtid))
                     {
                         MessageBox.Show("社員IDが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                     }
 
                     else if (string.IsNullOrEmpty(txtpw))
+
                     {
                         MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                     }
                 
 
