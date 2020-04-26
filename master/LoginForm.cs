@@ -93,8 +93,8 @@ namespace master
                 //条件分岐
 
 
-                while (num == 0)
-                { if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
+                
+                 if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
                     {
                         MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -108,7 +108,7 @@ namespace master
                     {
                         MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
+                
 
                 if (num == 0)
 
