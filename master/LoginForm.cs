@@ -43,12 +43,33 @@ namespace master
 
 
         {
-            string txtid = Idtxt.Text;
-            string txtpw = passtxt.Text;
+            string txtid = this.Idtxt.Text;
+            string txtpw = this.passtxt.Text;
 
-           
-                //接続文字列の取得
-                string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
+            
+            if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
+            {
+                MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(txtid))
+            {
+                MessageBox.Show("社員IDが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(txtpw))
+
+            {
+                MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
+            //接続文字列の取得
+            string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Staff;Integrated Security=True";
 
 
 
@@ -67,52 +88,30 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-                SqlCommand com = new SqlCommand(constr,con);
-                com.CommandText = @"SELECT COUNT (*) FROM M_Staff WHERE [Staff_ID]= " + "'" + txtid + "'" + " AND[Staff_Password] = " + "'" + txtpw + "'";
+               
+                string sql = "SELECT COUNT (*) FROM M_Staff WHERE Staff_ID= @id AND Staff_Password = @pw ";
+                      
 
 
+                SqlCommand com = new SqlCommand(sql, con);
 
-
-
-                //idのSqlパラメータの作成
-                SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar, 10);
-                paramid.Value = "TES0010021";
-
-
-                //passwordのSqlパラメーターの作成
-                SqlParameter parampw = new SqlParameter("@pw", SqlDbType.VarChar, 10);
-                parampw.Value = "password" ;
+                
+                SqlParameter paramid = new SqlParameter( "@id" , SqlDbType.VarChar, 10);
+                paramid.Value = txtid;
+                
+                SqlParameter parampw = new SqlParameter( "@pw" , SqlDbType.VarChar, 10);
+                parampw.Value = txtpw;
 
                 com.Parameters.Add(paramid);
                 com.Parameters.Add(parampw);
                 com.Prepare();
 
+               
+
 
                 int num = (int)com.ExecuteScalar();
 
                 //条件分岐
-
-
-                
-                 if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
-                    {
-                        MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                    }
-
-                    else if (string.IsNullOrEmpty(txtid))
-                    {
-                        MessageBox.Show("社員IDが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                    }
-
-                    else if (string.IsNullOrEmpty(txtpw))
-
-                    {
-                        MessageBox.Show("パスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                    }
-                
 
                 if (num == 0)
 
@@ -126,8 +125,11 @@ namespace master
                    
                     else
                     {
-                       
-                    MessageBox.Show("成功", "ログイン", MessageBoxButtons.OK);
+
+                    // メインメニューのインスタンスを生成
+                    Main_menu main = new Main_menu();
+                    // メインメニューを表示
+                    main.ShowDialog(); ;
 
                 }
                 
