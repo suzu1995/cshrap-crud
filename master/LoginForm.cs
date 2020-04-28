@@ -126,7 +126,7 @@ namespace master
                     else
                     {
 
-                    // メインメニューのインスタンスを生成
+                   
                     Main_menu main = new Main_menu();
                     // メインメニューを表示
                     main.ShowDialog(); ;
