@@ -57,7 +57,7 @@ namespace master
                     long val = (long)sdr["Product_Val"];
                     DateTime date = (DateTime)sdr["insert_date"];
 
-                    textBox2.Text += string.Format("{0}", name.Trim());
+                    textBox2.Text += string.Format("{0}", name);
                     textBox3.Text += string.Format("{0}", val);
                     textBox4.Text += string.Format("{0}", date);
 
