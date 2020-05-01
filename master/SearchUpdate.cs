@@ -18,7 +18,10 @@ namespace master
             InitializeComponent();
         }
 
+        private void txtdate_TextChanged(object sender, EventArgs e)
+        {
 
+        }
 
         private void button1_Click(object sender, EventArgs e)
 
@@ -52,14 +55,16 @@ namespace master
                 SqlDataReader sdr = com.ExecuteReader();
                 if (sdr.Read())
                 {
-
+                    string id = (string)sdr["Product_ID"];
                     string name = (string)sdr["Product_Name"];
                     long val = (long)sdr["Product_Val"];
                     DateTime date = (DateTime)sdr["insert_date"];
 
-                    textBox2.Text += string.Format("{0}", name);
-                    textBox3.Text += string.Format("{0}", val);
-                    textBox4.Text += string.Format("{0}", date);
+
+                    txtid = id;
+                    txtname.Text = name;
+                    txtval.Text = val.ToString();
+                    txtdate.Text = date.ToString("yyyy/MM/dd");
 
                 }
 
@@ -69,6 +74,99 @@ namespace master
                     return;
                 }
             }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void clearForm(bool clearAll)
+        {
+
+
+            // 入力欄をクリア
+            this.txtname.Text = "";
+            this.txtval.Text = "";
+            this.txtdate.Text = "";
+            if (clearAll)
+            {
+                // 検索条件欄も
+                this.txtid.Text = "";
+            }
+        }
+
+            private void button2_Click(object sender, EventArgs e)
+        {
+            string txtid = this.txtid.Text;
+            string txtname = this.txtname.Text;
+            string txtval = this.txtval.Text;
+            string txtdate = this.txtdate.Text;
+
+            string constr = "Data Source=DESKTOP-JBH4QJM\\SQLEXPRESS;Initial Catalog=Product;Integrated Security=True";
+
+            SqlConnection con = new SqlConnection(constr);
+
+
+            try
+            {
+                con.Open();
+
+                string sql = "UPDATE M_Product SET Product_name = @name,Product_Val= @val,insert_date = @date" +
+                             "  WHERE Product_ID =  @id ";
+                SqlCommand com = new SqlCommand(sql, con);
+
+                SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar, 8);
+                paramid.Value = txtid;
+               
+
+                SqlParameter paramname = new SqlParameter("@name", SqlDbType.VarChar, 50);
+                paramname.Value = txtname;
+                
+                
+
+                SqlParameter paramval = new SqlParameter("@val", SqlDbType.BigInt);
+                paramval.Value = txtval;
+               
+                
+
+                SqlParameter paramdate = new SqlParameter("@date", SqlDbType.Date);
+                paramdate.Value = txtdate;
+               
+
+                com.Parameters.Add(paramid);
+                com.Parameters.Add(paramname);
+                com.Parameters.Add(paramval);
+                com.Parameters.Add(paramdate);
+
+                com.Prepare();
+
+                com.ExecuteNonQuery();
+               
+                {
+                    DateTime dt = DateTime.Now;
+                    txtdate += dt.ToString("d") + "/r/n";
+                    this.clearForm(true);
+
+
+                    MessageBox.Show("完了しました。");
+                   
+                    return;
+
+                }
+
+               
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             finally
             {
                 con.Close();
@@ -76,4 +174,7 @@ namespace master
         }
 
     }
-}
+    }
+
+       
+    
