@@ -143,7 +143,7 @@ namespace master
                 com.Parameters.Add(paramval);
                 com.Parameters.Add(paramdate);
 
-                com.Prepare();
+                com.Prepare(); 
 
                 com.ExecuteNonQuery();
                
@@ -173,6 +173,15 @@ namespace master
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            this.Close();
+
+            Main_menu main = new Main_menu();
+           
+            main.ShowDialog();
+        }
     }
     }
 

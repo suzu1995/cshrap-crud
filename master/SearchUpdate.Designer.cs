@@ -39,7 +39,7 @@
             this.txtval = new System.Windows.Forms.TextBox();
             this.txtdate = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Backbutton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -139,14 +139,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // Backbutton
             // 
-            this.button3.Location = new System.Drawing.Point(166, 194);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "戻る";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Backbutton.Location = new System.Drawing.Point(166, 194);
+            this.Backbutton.Name = "Backbutton";
+            this.Backbutton.Size = new System.Drawing.Size(75, 23);
+            this.Backbutton.TabIndex = 11;
+            this.Backbutton.Text = "戻る";
+            this.Backbutton.UseVisualStyleBackColor = true;
+            this.Backbutton.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBox1
             // 
@@ -163,7 +164,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(272, 229);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.Backbutton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtdate);
             this.Controls.Add(this.txtval);
@@ -196,7 +197,7 @@
         private System.Windows.Forms.TextBox txtval;
         private System.Windows.Forms.TextBox txtdate;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Backbutton;
         private System.Windows.Forms.GroupBox groupBox1;
     }
 }

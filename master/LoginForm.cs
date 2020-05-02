@@ -125,11 +125,12 @@ namespace master
                    
                     else
                     {
+                    this.Hide();
 
-                   
                     Main_menu main = new Main_menu();
                     // メインメニューを表示
-                    main.ShowDialog(); ;
+                    main.ShowDialog();
+                   
 
                 }
                 
