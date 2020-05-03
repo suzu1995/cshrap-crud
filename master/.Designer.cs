@@ -85,6 +85,7 @@
             this.txtcreateval.Name = "txtcreateval";
             this.txtcreateval.Size = new System.Drawing.Size(131, 19);
             this.txtcreateval.TabIndex = 5;
+            this.txtcreateval.TextChanged += new System.EventHandler(this.txtcreateval_TextChanged);
             // 
             // button1
             // 
@@ -104,6 +105,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "戻る";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // CreateNew
             // 
