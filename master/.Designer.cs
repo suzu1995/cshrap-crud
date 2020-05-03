@@ -82,6 +82,7 @@
             // txtcreateval
             // 
             this.txtcreateval.Location = new System.Drawing.Point(102, 72);
+            this.txtcreateval.MaxLength = 8;
             this.txtcreateval.Name = "txtcreateval";
             this.txtcreateval.Size = new System.Drawing.Size(131, 19);
             this.txtcreateval.TabIndex = 5;

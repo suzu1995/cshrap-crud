@@ -52,9 +52,10 @@ namespace master
             {
                 con.Open();
 
-                string sql = "INSERT INTO M_Product(Product_ID, Product_Name, Product_Val,insert_date) VALUES(@id, @name, @val,@date)"
-                               + " SELECT Product_ID,Product_Name,Product_Val,insert_date FROM M_Product"
-                               +" WHERE NOT EXISTS(SELECT Product_ID FROM M_Product)";
+                string sql = "INSERT INTO M_Product(Product_ID, Product_Name, Product_Val,insert_date) VALUES(@id, @name, @val,getdate())"
+                +" SELECT Product_ID,Product_Name,Product_Val,insert_date FROM M_Product"
+                + " WHERE NOT EXISTS(SELECT Product_ID FROM M_Product)";
+
                 SqlCommand com = new SqlCommand(sql, con);
 
                 SqlParameter paramid = new SqlParameter("@id", SqlDbType.VarChar, 8);
@@ -70,9 +71,7 @@ namespace master
                 paramval.ToString();
                 com.Parameters.Add(paramval);
 
-                SqlParameter paramdate = new SqlParameter("@date", SqlDbType.Date);
-                paramdate.Value = dt;
-                com.Parameters.Add(paramdate);
+                
 
                 com.Prepare();
 
@@ -82,7 +81,7 @@ namespace master
                 MessageBox.Show("完了しました");
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("既にその商品コードは使用されています。");
             }
