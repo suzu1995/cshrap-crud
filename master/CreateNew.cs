@@ -52,9 +52,7 @@ namespace master
             {
                 con.Open();
 
-                string sql = "INSERT INTO M_Product(Product_ID, Product_Name, Product_Val,insert_date) VALUES(@id, @name, @val,getdate())"
-                +" SELECT Product_ID,Product_Name,Product_Val,insert_date FROM M_Product"
-                + " WHERE NOT EXISTS(SELECT Product_ID FROM M_Product)";
+                string sql = "INSERT INTO M_Product(Product_ID, Product_Name, Product_Val,insert_date) VALUES(@id, @name, @val, getdate())";
 
                 SqlCommand com = new SqlCommand(sql, con);
 
