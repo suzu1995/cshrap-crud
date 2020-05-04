@@ -43,22 +43,24 @@ namespace master
 
 
         {
+            //テキストボックスオブジェクト化
             string txtid = this.Idtxt.Text;
             string txtpw = this.passtxt.Text;
 
-            
+            //未入力の処理
+            //パスワード・IDともに未入力
             if (string.IsNullOrEmpty(txtid) && string.IsNullOrEmpty(txtpw))
             {
                 MessageBox.Show("社員IDおよびパスワードが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            //ID未入力
             else if (string.IsNullOrEmpty(txtid))
             {
                 MessageBox.Show("社員IDが未入力です。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            //パスワード未入力
             else if (string.IsNullOrEmpty(txtpw))
 
             {
@@ -88,14 +90,14 @@ namespace master
 
                 //実行したいSQL文に引数を与えてSqlオブジェクトの作成
 
-               
+               //IDとパスワードのレコード件数を取得
                 string sql = "SELECT COUNT (*) FROM M_Staff WHERE Staff_ID= @id AND Staff_Password = @pw ";
                       
 
 
                 SqlCommand com = new SqlCommand(sql, con);
 
-                
+                //IDとパスワードのパラメータ化
                 SqlParameter paramid = new SqlParameter( "@id" , SqlDbType.VarChar, 10);
                 paramid.Value = txtid;
                 
@@ -108,11 +110,11 @@ namespace master
 
                
 
-
+                //入力されたIDとパスワードがレコードに存在するか読み取る
                 int num = (int)com.ExecuteScalar();
 
                 //条件分岐
-
+                //件数なし
                 if (num == 0)
 
                 {
@@ -122,10 +124,10 @@ namespace master
 
                 }
 
-                   
+                   //レコード件数あり
                     else
                     {
-                    this.Hide();
+                    this.Hide();　　//画面を閉じる
 
                     Main_menu main = new Main_menu();
                     // メインメニューを表示

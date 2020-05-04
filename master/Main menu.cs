@@ -25,6 +25,7 @@ namespace master
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.Hide();
             // 検索画面のインスタンスを生成
             SearchUpdate search = new SearchUpdate();
             // 検索画面を表示
@@ -33,14 +34,15 @@ namespace master
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            // 検索画面のインスタンスを生成
-           CreateNew create= new CreateNew();
-            // 検索画面を表示
+            this.Hide();
+            // 新規登録画面のインスタンスを生成
+            CreateNew create= new CreateNew();
+            // 新規登録画面を表示
             create.ShowDialog();
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Application.Exit();　//アプリケーションの終了
         }
 
        
